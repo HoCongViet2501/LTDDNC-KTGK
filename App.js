@@ -1,27 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import { FlatList, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Data from './Data';
+import Screen2 from './screen/Screen2';
+import { useState } from 'react';
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const renderItem = ({ item }) => {
     return (
+
       <Item item={item} />
     )
   }
   const data=Data;
 
   const Item = ({ item }) => (
-    <View style={styles.item}>
+    <View style={styles.item} onTouchMoveaa>
       <Image style={{height:60,width:70}} source={item.image}></Image>
       <View style={styles.centerItem}>
         <Text style={{ marginLeft: 10, fontWeight: "bold", fontSize: 15 }}>{item.title}</Text>
-        <Text style={{ marginLeft: 10 }}>Shop: {item.price}</Text>
+        <Text style={{ marginLeft: 10 }}> {item.price}</Text>
       </View>
+      <TouchableOpacity style={styles.btnDetail} onPress={
+        () => {
+          this.props.navigation.navigate('Screen2')
+        }
+      }>
+        <Text style={{ color: "white", fontSize: 15, fontWeight: "bold", marginTop: 10, textAlign: "center" }}>Detail</Text>
+      </TouchableOpacity>
       
     </View>
   )
 
   return (
+
     <View style={styles.container}>
       <View style={styles.headerTop}>
         <Text style={{ marginTop: 20 }}>Good morning, Indro!  </Text>
@@ -62,6 +74,9 @@ export default function App() {
         style={styles.list}>
       </FlatList>
       </View>
+      {/* <View>
+        <Screen2 item={data}></Screen2>
+      </View> */}
 
     </View>
   );
@@ -70,7 +85,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#d5d5d5',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -78,7 +93,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     flexDirection: "row",
-    marginLeft: 150
+    marginLeft: 150,
+    marginTop: 20,
   },
   input: {
     color: "black",
@@ -150,5 +166,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#1BA9BC",
     borderRadius: 7
+  },
+  btnDetail: {
+    backgroundColor: "green",
+    height: 45,
+    borderRadius: 5,
+    width: 60,
+    marginTop: 15,
+    marginLeft: 20
   },
 });
